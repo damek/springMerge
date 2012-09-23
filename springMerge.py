@@ -5,6 +5,7 @@ import urllib
 from pyPdf import PdfFileWriter, PdfFileReader
 import os
 import signal
+from optparse import OptionParser
 
 downloadInterrupted = "downloadInterrupted"
 
@@ -148,16 +149,44 @@ def signal_handler(signal, frame):
         print 'Downloading interrupted! Run the program again to resume downloading.'
         sys.exit(0)
 signal.signal(signal.SIGINT, signal_handler)
+
+def formatFileName(pageContents, format):
+    title = getBookTitle(pageContents)
+    author = getBookAuthor(pageContents)
+    year = getBookPublicationDate(pageContents)
+    outputFileName = ""
+    for e in format:
+        if e not in ["T", "A", "Y"]:
+            outputFileName = outputFileName + e
+        elif e == "T":
+            outputFileName = outputFileName + title
+        elif e == "A":
+            outputFileName = outputFileName + author
+        else:
+            outputFileName = outputFileName + year
+    print outputFileName
+    return outputFileName
     
 def main():
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print "USAGE: python SPRINGERLINK_URL SAVE_DIRECTORY (optional)"
+    parser = OptionParser()
+    parser.add_option("-f", "--format", dest="format",
+                  help="Format of output file title: T, A (Y) is Title, Author (Year).", metavar="FORMAT")
+    parser.add_option("-d", "--directory", dest="directory",
+                  help="Directory to save PDF in.", metavar="DIRECTORY")
+    (options, args) = parser.parse_args()
+    print options.format
+    if len(sys.argv) < 2:
+        print "USAGE: python SPRINGERLINK_URL SAVE_DIRECTORY (optional) --format='FORMAT' (optional)"
     else:
-        if len(sys.argv) == 3:
-            os.chdir(sys.argv[2])
+        if len(options.directory) > 0:
+            os.chdir(os.path.expanduser(options.directory))
         URL = sys.argv[1]
         pageContents = getPageContents(URL)
-        outputFileName = getBookTitle(pageContents) + ", " + getBookAuthor(pageContents) + " (" + getBookPublicationDate(pageContents) + ").pdf"
+        outputFileName = ""
+        if (len(options.format) > 0):
+            outputFileName = formatFileName(pageContents, options.format) + ".pdf"
+        else:
+            outputFileName = formatFileName(pageContents, "T, A (Y)") + ".pdf"
         startingIndex = makeAndChangeDirectory(makeTempFolderName(outputFileName))
         begin(pageContents, outputFileName, startingIndex)
  
