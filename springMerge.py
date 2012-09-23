@@ -164,7 +164,6 @@ def formatFileName(pageContents, format):
             outputFileName = outputFileName + author
         else:
             outputFileName = outputFileName + year
-    print outputFileName
     return outputFileName
     
 def main():
@@ -174,7 +173,6 @@ def main():
     parser.add_option("-d", "--directory", dest="directory",
                   help="Directory to save PDF in.", metavar="DIRECTORY")
     (options, args) = parser.parse_args()
-    print options.format
     if len(sys.argv) < 2:
         print "USAGE: python SPRINGERLINK_URL SAVE_DIRECTORY (optional) --format='FORMAT' (optional)"
     else:
@@ -187,6 +185,7 @@ def main():
             outputFileName = formatFileName(pageContents, options.format) + ".pdf"
         else:
             outputFileName = formatFileName(pageContents, "T, A (Y)") + ".pdf"
+        print "Preparing to download " + outputFileName
         startingIndex = makeAndChangeDirectory(makeTempFolderName(outputFileName))
         begin(pageContents, outputFileName, startingIndex)
  
