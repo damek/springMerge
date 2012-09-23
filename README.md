@@ -8,13 +8,16 @@ Note that this script will only work if your current internet connection gives y
 Usage: 
 ===========
 
-print "USAGE: python SPRINGERLINK_URL SAVE_DIRECTORY (optional)"
+print "USAGE: python SPRINGERLINK_URL --directory="DIRECTORY_TO_SAVE" --format="FORMAT"
+
+format is any combination of the letters $T, A, and Y$ with any other characters.
 
 Example:
 
-python springMerge.py http://www.springerlink.com/content/978-0-387-21718-5 ~/
+python springMerge.py http://www.springerlink.com/content/978-0-387-21718-5 --directory="~/" --format="T, A (YEAR)"
 
 Will save Mathematical Statistics, Jun Shao (2003).pdf to your home directory on a linux machine.
+
 
 Features:
 ===========
