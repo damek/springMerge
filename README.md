@@ -19,8 +19,6 @@ Will save Mathematical Statistics, Jun Shao (2003).pdf to your home directory on
 Features:
 ===========
 
-1. Automatically names files with the following format:
-
-Title, Author Name (Year).pdf
+1. Automatically names files with the following format: Title, Author Name (Year).pdf
 
 2. If the program exits mid-download, you can resume downloading by running it again with the same url.
