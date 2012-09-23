@@ -22,3 +22,7 @@ Features:
 1. Automatically names files with the following format: Title, Author Name (Year).pdf
 
 2. If the program exits mid-download, you can resume downloading by running it again with the same url.
+
+License:
+===========
+Any license that gives you permission to modify and redistribute this code however you want.
