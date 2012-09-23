@@ -140,8 +140,8 @@ def begin(pageContents, outputFileName, startingIndex):
     mergePDFs(PDFList, outputFileName)
     deleteChapters(PDFList, dirName)
     print "Done!"
-    print "Successfully downloaded " + dirName " to " : 
-    print os.getcwd() + dirName + ".pdf"
+    print "Successfully downloaded " + dirName + " to: "
+    print os.getcwd() + "/" + dirName + ".pdf"
 
 #!/usr/bin/env python
 def signal_handler(signal, frame):
@@ -150,9 +150,11 @@ def signal_handler(signal, frame):
 signal.signal(signal.SIGINT, signal_handler)
     
 def main():
-    if len(sys.argv) < 2:
-        print "USAGE: python SPRINGERLINK_URL"
+    if len(sys.argv) < 2 or len(sys.argv) > 3:
+        print "USAGE: python SPRINGERLINK_URL SAVE_DIRECTORY (optional)"
     else:
+        if len(sys.argv) == 3:
+            os.chdir(sys.argv[2])
         URL = sys.argv[1]
         pageContents = getPageContents(URL)
         outputFileName = getBookTitle(pageContents) + ", " + getBookAuthor(pageContents) + " (" + getBookPublicationDate(pageContents) + ").pdf"
