@@ -136,10 +136,12 @@ def begin(pageContents, outputFileName, startingIndex):
     download(URLList, startingIndex)
     PDFList = [str(i) + ".pdf" for i in range(0, len(URLList))]
     print "Merging PDFs..."
+    dirName = makeTempFolderName(outputFileName)
     mergePDFs(PDFList, outputFileName)
-    deleteChapters(PDFList, makeTempFolderName(outputFileName))
+    deleteChapters(PDFList, dirName)
     print "Done!"
-    print "Successfully downloaded " + makeTempFolderName(outputFileName) + "."
+    print "Successfully downloaded " + dirName " to " : 
+    print os.getcwd() + dirName + ".pdf"
 
 #!/usr/bin/env python
 def signal_handler(signal, frame):
