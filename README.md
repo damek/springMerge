@@ -5,6 +5,22 @@ A short python script to merge SpringerLink PDFs.
 
 Note that this script will only work if your current internet connection gives you access to SpringerLink.  This includes off campus VPN connections to many universities.
 
+Features:
+===========
+
+1. Automatically names files with the following format: Title, Author Name (Year).pdf
+
+2. If the program exits mid-download, you can resume downloading by running it again with the same url.
+
+Installation
+===========
+
+Install pip (http://pypi.python.org/pypi/pip) and then run the following commands:
+
+1. sudo pip install requests
+
+2. sudo pip install pyPdf
+
 Usage: 
 ===========
 
@@ -14,17 +30,9 @@ format is any combination of the letters $T, $A, and $Y with any other character
 
 Example:
 
-python springMerge.py http://www.springerlink.com/content/978-0-387-21718-5 --directory="~/" --format="$T, $A ($Y)"
+python springMerge.py http://www.springerlink.com/content/978-0-387-21718-5 --directory="~/" --format="&T, &A (&Y)"
 
 Will save Mathematical Statistics, Jun Shao (2003).pdf to your home directory on a linux machine.
-
-
-Features:
-===========
-
-1. Automatically names files with the following format: Title, Author Name (Year).pdf
-
-2. If the program exits mid-download, you can resume downloading by running it again with the same url.
 
 License:
 ===========

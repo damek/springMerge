@@ -155,15 +155,17 @@ def formatFileName(pageContents, format):
     author = getBookAuthor(pageContents)
     year = getBookPublicationDate(pageContents)
     outputFileName = ""
+    i = 0
     for e in format:
-        if e not in ["T", "A", "Y"]:
+        if e not in ["T", "A", "Y", "&"]:
             outputFileName = outputFileName + e
-        elif e == "T":
+        elif e == "T" and format[max(i-1, 0)] == "&":
             outputFileName = outputFileName + title
-        elif e == "A":
+        elif e == "A" and format[max(i-1, 0)] == "&":
             outputFileName = outputFileName + author
-        else:
+        elif e == "Y" and format[max(i-1, 0)] == "&":
             outputFileName = outputFileName + year
+	i = i+1
     return outputFileName
     
 def main():
@@ -184,7 +186,7 @@ def main():
         if (len(options.format) > 0):
             outputFileName = formatFileName(pageContents, options.format) + ".pdf"
         else:
-            outputFileName = formatFileName(pageContents, "T, A (Y)") + ".pdf"
+            outputFileName = formatFileName(pageContents, "&T, &A (&Y)") + ".pdf"
         print "Preparing to download " + outputFileName
         startingIndex = makeAndChangeDirectory(makeTempFolderName(outputFileName))
         begin(pageContents, outputFileName, startingIndex)
